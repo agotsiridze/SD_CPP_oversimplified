@@ -1,0 +1,13 @@
+/src/sd-server \
+  --backend cuda \
+  --diffusion-model /workplace/models/base_models/qwen-image-edit-2511-Q5_0.gguf \
+  --vae /workplace/models/vae/qwen_image_vae.safetensors \
+  --vae-format auto \
+  --llm /workplace/models/encoders/Qwen2.5-VL-7B-Instruct.Q8_0.gguf \
+  --llm_vision /workplace/models/mmproj/Qwen2.5-VL-7B-Instruct.mmproj-f16.gguf \
+  --model-args qwen_image_zero_cond_t=1 \
+  --fa \
+  --listen-ip 0.0.0.0 \
+  --listen-port "$PORT" \
+  --eager-load \
+  --lora-model-dir /workplace/models/upscale_loras

@@ -1,0 +1,30 @@
+services:
+  sd_cpp:
+    build:
+      context: ./sd_server_cpp
+      args:
+        CUDA_VERSION: ${CUDA_VERSION}
+        PORT: ${PORT}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ./sd_server_cpp:/workplace
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env
+    tty: true
+    stdin_open: true
+    shm_size: '16g'
+  #client side is in working process, use GUI for now
+  # img_generation_client:
+  #   build: ./workplace
+  #   volumes:
+  #     - ./workplace:/workplace
+  #   tty: true
+  #   stdin_open: true
